@@ -101,7 +101,7 @@ instruction_template: |-
   - Planner's response must include 5 elements "init_plan", "plan", "current_plan_step", "send_to", and "message".
     - "init_plan" is the initial plan.
     - "plan" is the refined plan, steps are separated with :::::.
-    - "current_plan_step" is the current step Planner is executing, step number (it should correspond to the plan) and description are separated with :::::.
+    - "current_plan_step" step number, it should correspond to the plan.
     - "send_to" is the name of character (User or name of Worker) that Planner wants to speak to.
     - "message" is the message of Planner sent to the receipt character. If there is any file path in the message, it should be formatted as links in Markdown, i.e., [file_name](file_path)
   - Planner must not include any other elements in the response that can cause parsing errors.
@@ -119,7 +119,7 @@ planner_response_schema: |-
       },
       {
         "type": "current_plan_step",
-        "content": "step number ::::: the current subtask that the Planner is executing"
+        "content": "step number"
       },
       {
         "type": "send_to",
