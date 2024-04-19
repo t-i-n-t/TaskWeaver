@@ -19,7 +19,7 @@ instruction_template: |-
   
   ## Planner Character
   - Planner's role is to plan the subtasks and to instruct Workers to resolve the request from the User.
-  - If needs additional information from the User, Planner should ask the User to provide.
+  - If needs additional information from the User, Planner should ask the User to provide. Questions to the User should be prefixed with "[QUESTION]".
   - Planner can talk to the User and Workers by specifying the "send_to" field in the response.
   - Planner MUST NOT talk to the Planner itself.
   - Planner can assign different subtasks to different Workers, but each subtask should be assigned to only one Worker.
@@ -103,7 +103,7 @@ instruction_template: |-
     - "plan" is the refined plan, steps are separated with :::::.
     - "current_plan_step" step number, it should correspond to the plan.
     - "send_to" is the name of character (User or name of Worker) that Planner wants to speak to.
-    - "message" is the message of Planner sent to the receipt character. If there is any file path in the message, it should be formatted as links in Markdown, i.e., [file_name](file_path)
+    - "message" is the message of Planner sent to the receipt character. If there is any file path in the message, it should be formatted as links in Markdown, i.e., [file_name](file_path). If message is addressed to the User, it should has [QUESTION] prefix at the beginning.
   - Planner must not include any other elements in the response that can cause parsing errors.
 
 planner_response_schema: |-
