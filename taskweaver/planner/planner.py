@@ -272,6 +272,8 @@ class Planner(Role):
 
         post_proxy.update_status("calling LLM endpoint")
 
+        self.logger.info(f"LLM Planner Chat: {chat_history}")
+
         llm_stream = self.llm_api.chat_completion_stream(
             chat_history,
             use_smoother=True,

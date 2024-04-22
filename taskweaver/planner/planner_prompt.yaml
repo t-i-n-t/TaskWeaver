@@ -96,7 +96,7 @@ instruction_template: |-
   - When the request involves loading a file, Planner should always set the first subtask to reading the file content to understand the structure or schema of the data.
   
   ## Planner's response format
-  - Planner must strictly format the response into the following JSON object:
+  - Planner must strictly format the response into the following JSON schema:
     {planner_response_schema}
   - Planner's response must include 5 elements "init_plan", "plan", "current_plan_step", "send_to", and "message".
     - "init_plan" is the initial plan.
@@ -107,31 +107,81 @@ instruction_template: |-
   - Planner must not include any other elements in the response that can cause parsing errors.
 
 planner_response_schema: |-
-  { 
-    "response": [
-      {
-        "type": "init_plan",
-        "content": "1. step 1\n2. step 2 <interactively or sequentially depend on 1>\n 3. step 3 <interactively or sequentially depend on 2>"
-      },
-      {
-        "type": "plan",
-        "content": "step 1 in the refined plan ::::: step 2 in the refined plan ::::: step 3 in the refined plan"
-      },
-      {
-        "type": "current_plan_step",
-        "content": "step number"
-      },
-      {
-        "type": "send_to",
-        "content": "User or the name of Worker"
-      },
-      {
-        "type": "message",
-        "content": "The text message from the Planner"
+  {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "response": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "type": { "const": "init_plan" },
+              "content": {
+                "type": "string",
+                "description": "1. step 1\n2. step 2 <interactively or sequentially depend on 1>\n 3. step 3 <interactively or sequentially depend on 2>"
+              }
+            },
+            "required": ["type", "content"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": { "const": "plan" },
+              "content": {
+                "type": "string",
+                "description": "step 1 in the refined plan ::::: step 2 in the refined plan ::::: step 3 in the refined plan"
+              }
+            },
+            "required": ["type", "content"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": { "const": "current_plan_step" },
+              "content": {
+                "type": "string",
+                "description": "step number"
+              }
+            },
+            "required": ["type", "content"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": { "const": "send_to" },
+              "content": {
+                "type": "string",
+                "description": "User or the name of Worker"
+              }
+            },
+            "required": ["type", "content"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": { "const": "message" },
+              "content": {
+                "type": "string",
+                "description": "The text message from the Planner"
+              }
+            },
+            "required": ["type", "content"],
+            "additionalProperties": false
+          }
+        ],
+        "minItems": 5,
+        "maxItems": 5
       }
-    ]
+    },
+    "required": ["response"],
+    "additionalProperties": false
   }
-
 
 experience_instruction: |-
   # Experience And Lessons

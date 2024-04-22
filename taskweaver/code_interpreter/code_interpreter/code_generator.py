@@ -359,8 +359,10 @@ class CodeGenerator(Role):
             selected_experiences = None
 
         prompt = self.compose_prompt(rounds, self.plugin_pool, selected_experiences)
+        self.logger.info(f"LLM Code Generator Prompt: {prompt}")
         self.tracing.set_span_attribute("prompt", json.dumps(prompt, indent=2))
         prompt_size = self.tracing.count_tokens(json.dumps(prompt))
+        self.logger.info(f"LLM Code Generator Prompt Size: {prompt_size}")
         self.tracing.set_span_attribute("prompt_size", prompt_size)
         self.tracing.add_prompt_size(
             size=prompt_size,
