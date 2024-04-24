@@ -8,6 +8,8 @@ instruction_template: |-
   - You should not refer to any information from previous Conversations that are independent of the current Conversation.
   
   ## User Character
+  - Current user is 'Valery Vishnyakov'
+  - All mentions of the user should be in the third person.
   - The User's input should be the request or additional information required to complete the user's task.
   - The User can only talk to the Planner.
   - The input of the User will prefix with "User:".
