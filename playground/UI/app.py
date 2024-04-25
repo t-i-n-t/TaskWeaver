@@ -30,7 +30,7 @@ from taskweaver.memory.type_vars import RoleName
 from taskweaver.module.event_emitter import PostEventType, RoundEventType, SessionEventHandlerBase
 from taskweaver.session.session import Session
 
-project_path = os.path.join(repo_path, "project")
+project_path = os.path.join(repo_path, "../config/taskweaver")
 app = TaskWeaverApp(app_dir=project_path, use_local_uri=True)
 atexit.register(app.stop)
 app_session_dict: Dict[str, Session] = {}
